@@ -1,5 +1,17 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <Cards />
   </div>
 </template>
+
+
+<script>
+import Cards from '../components/Cards.vue'
+export default {
+  name:"About",
+    components:{
+      Cards
+    }
+  
+}
+</script>

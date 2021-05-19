@@ -1,15 +1,18 @@
 <template>
-  <hello-world />
+  <div>
+    <Carousel />
+    <h2>welcome to vaccin app</h2>
+  </div>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
-
+  import Carousel from '../components/Carousel.vue'
+  
   export default {
     name: 'Home',
 
     components: {
-      HelloWorld,
+      Carousel
     },
   }
 </script>
