@@ -10,10 +10,10 @@
     >
     <v-app-bar-title>Covid-19 Vaccination</v-app-bar-title>
     <v-spacer></v-spacer>
-    <router-link to="/"><v-btn text>Home</v-btn></router-link>
-    <router-link to="/slots"><v-btn text>Slots</v-btn></router-link>
-    <router-link to="/about"><v-btn text>About</v-btn></router-link>
-    <router-link to="/contact"><v-btn text>Contact</v-btn></router-link>  
+    <v-btn to="/" text>Home</v-btn>
+    <v-btn to="slots" text>Slots</v-btn>
+    <v-btn to="/about" text>About</v-btn>
+    <v-btn to="/contact" text>Contact</v-btn>  
     </v-app-bar>
 
     <!-- navbar section end -->
