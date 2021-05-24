@@ -3,18 +3,7 @@
    
    
    <!-- navbar section -->
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-    <v-app-bar-title>Covid-19 Vaccination</v-app-bar-title>
-    <v-spacer></v-spacer>
-    <v-btn to="/" text>Home</v-btn>
-    <v-btn to="slots" text>Slots</v-btn>
-    <v-btn to="/about" text>About</v-btn>
-    <v-btn to="/contact" text>Contact</v-btn>  
-    </v-app-bar>
+    <Navbar />
 
     <!-- navbar section end -->
 
@@ -64,6 +53,8 @@
 </template>
 
 <script>
+import Navbar from "./components/Navbar.vue";
+
 
 export default {
   name: 'App',
@@ -76,5 +67,8 @@ export default {
         'mdi-instagram',
       ],
   }),
+  components: {
+      Navbar
+    },
 };
 </script>
