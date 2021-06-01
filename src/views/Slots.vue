@@ -1,34 +1,44 @@
 <template>
   <div>
-    <v-form v-model="valid">
-      <v-container>
-        <v-row>
-          <v-col cols="12" md="4">
-            <v-select :state="state.states" label="Standard"></v-select>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <v-select :items="items" label="Standard"></v-select>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <v-btn outlined block color="primary">SEARCH</v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
+    <!-- select -->
     <v-container>
-      <!-- <ul>
-            <li v-for="item in dataval" :key="item.message">
-                {{ item.available_capacity }}
-            </li>
-        </ul> -->
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-select
+            :items="state"
+            item-text="state"
+            item-value="id"
+            label="State"
+            persistent-hint
+            return-object
+            single-line
+            v-on:change="onshow"
+          ></v-select>
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-select
+            :items="district"
+            item-text="districts"
+            item-value="id"
+            label="Districts"
+            persistent-hint
+            return-object
+            single-line
+            v-on:change="ondetail"
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- select end -->
+
+    <!-- card -->
+    <v-container>
       <v-row>
         <v-col>
           <v-card
             v-for="item in dataval"
             :key="item.center_id"
-            :loading="loading"
             class="mx-auto my-12"
             max-width="100%"
           >
@@ -82,7 +92,6 @@
 
             <v-card-text>
               <v-chip-group
-                v-model="selection"
                 active-class="deep-purple accent-4 white--text"
                 column
               >
@@ -118,6 +127,7 @@
         </v-col>
       </v-row>
     </v-container>
+    <!-- card end -->
   </div>
 </template>
 
@@ -133,31 +143,50 @@ export default {
     return {
       dataval: [],
       state: [],
+      district: [],
     };
   },
   methods: {
-    getData() {
-      this.axios
-        .get(
-          "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=363&date=31-05-2021"
-        )
-        .then((data) => {
-          // console.log(data.data);
-          this.dataval = data.data.sessions;
-          // console.log(this.dataval.sessions);
-        });
-
+    getStates() {
       this.axios
         .get("https://cdn-api.co-vin.in/api/v2/admin/location/states")
         .then((data) => {
-          // console.log(data.data);
-          this.state = data.data.states;
-          // console.log(this.items[1]);
+          for (var i = 0; i < data.data.states.length; i++) {
+            var value = {
+              id: data.data.states[i].state_id,
+              state: data.data.states[i].state_name,
+            };
+            this.state.push(value);
+          }
+        });
+    },
+    onshow(e) {
+      this.axios
+        .get(
+          "https://cdn-api.co-vin.in/api/v2/admin/location/districts/" + e.id
+        )
+        .then((data) => {
+          for (var i = 0; i < data.data.districts.length; i++) {
+            var disValue = {
+              id: data.data.districts[i].district_id,
+              districts: data.data.districts[i].district_name,
+            };
+            this.district.push(disValue);
+          }
+        });
+    },
+    ondetail(e) {
+      this.axios
+        .get(
+          `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${e.id}&date=01-06-2021`
+        )
+        .then((data) => {
+          this.dataval = data.data.sessions;
         });
     },
   },
   mounted() {
-    this.getData();
+    this.getStates();
   },
 };
 </script>
