@@ -136,6 +136,8 @@ import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
+import moment from "moment";
+Vue.prototype.moment = moment;
 
 export default {
   name: "Slots",
@@ -178,7 +180,9 @@ export default {
     ondetail(e) {
       this.axios
         .get(
-          `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${e.id}&date=01-06-2021`
+          `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${
+            e.id
+          }&date=${moment(new Date()).format("DD-MM-YYYY")}`
         )
         .then((data) => {
           this.dataval = data.data.sessions;
