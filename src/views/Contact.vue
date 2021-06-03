@@ -52,11 +52,40 @@
             </v-container>
           </v-card>
         </v-col>
-        <v-col md="8" cols="12">Gaikwad</v-col>
+        <v-col md="8" cols="12">
+          <v-row>
+            <v-col
+              cols="12"
+              md="6"
+              sm="12"
+              v-for="data in dataval"
+              :key="data.key"
+            >
+              <v-card class="mx-auto" width="100%" outlined>
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <div class="text-overline mb-1">{{ data.name }}</div>
+                    <v-list-item-title class="text-h5 mb-1">
+                      {{ data.response }}
+                    </v-list-item-title>
+                    <v-list-item-subtitle>{{ data.desc }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                  <v-avatar size="60" color="primary" class="text-uppercase">{{
+                    data.name[0]
+                  }}</v-avatar>
+                </v-list-item>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-col>
       </v-row>
     </h1>
   </v-container>
 </template>
+
+
+
+
 
 <script>
 import Vue from "vue";
@@ -64,6 +93,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 import { validationMixin } from "vuelidate";
+import { db } from "../firebasedb";
 import {
   required,
   maxLength,
@@ -74,6 +104,8 @@ import {
 export default {
   name: "Contact",
   mixins: [validationMixin],
+
+  // validations
   validations: {
     name: { required, maxLength: maxLength(20) },
     email: { required, email },
@@ -81,14 +113,20 @@ export default {
     desc: { required, minLength: minLength(20), maxLength: maxLength(40) },
   },
 
-  data: () => ({
-    name: "",
-    email: "",
-    select: null,
-    items: ["VERY GOOD", "GOOD", "OKAY OKAY", "POOR"],
-    desc: "",
-  }),
+  // data
+  data() {
+    return {
+      name: "",
+      email: "",
+      select: null,
+      items: ["VERY GOOD", "GOOD", "OKAY OKAY", "POOR"],
+      desc: "",
+      dataval: [],
+      user: [],
+    };
+  },
 
+  // form errors
   computed: {
     selectErrors() {
       const errors = [];
@@ -121,18 +159,60 @@ export default {
     },
   },
 
+  // methods
   methods: {
     submit() {
-      console.log(this.name + " " + this.select);
       this.$v.$touch();
+      if (
+        this.name != "" &&
+        this.select != null &&
+        this.email != "" &&
+        this.desc != ""
+      ) {
+        this.user = {
+          name: this.name,
+          email: this.email,
+          response: this.select,
+          desc: this.desc,
+        };
+        db.collection("feedbacks")
+          .add(this.user)
+          .then(() => {
+            this.$v.$reset();
+            this.name = "";
+            this.email = "";
+            this.select = null;
+            this.desc = "";
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
+
     clear() {
       this.$v.$reset();
       this.name = "";
       this.email = "";
       this.select = null;
-      this.desc = false;
+      this.desc = "";
     },
+  },
+
+  // database
+  created() {
+    db.collection("feedbacks").onSnapshot((snapshotChange) => {
+      this.dataval = [];
+      snapshotChange.forEach((doc) => {
+        this.dataval.push({
+          key: doc.id,
+          name: doc.data().name,
+          email: doc.data().email,
+          response: doc.data().response,
+          desc: doc.data().desc,
+        });
+      });
+    });
   },
 };
 </script>
