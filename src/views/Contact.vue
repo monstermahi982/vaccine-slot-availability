@@ -93,7 +93,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 Vue.use(VueAxios, axios);
 import { validationMixin } from "vuelidate";
-import { db } from "../firebasedb";
+import { db } from "../firebase/firebasedb";
 import {
   required,
   maxLength,
