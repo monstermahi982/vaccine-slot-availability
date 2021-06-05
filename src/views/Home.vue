@@ -4,7 +4,6 @@
     <h1 class="text-center font-weight-bold blue--text" color="blue darken-3">
       WELCOME TO VACCINE SLOT AVAILABLITY FOR COVID-19
     </h1>
-    <h2>{process.env.VUE_APP_ROOT_API}</h2>
   </div>
 </template>
 
