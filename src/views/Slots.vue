@@ -30,6 +30,9 @@
         </v-col>
       </v-row>
     </v-container>
+    <div class="text-center" v-show="loader">
+      <v-progress-circular indeterminate color="red"></v-progress-circular>
+    </div>
     <!-- select end -->
 
     <!-- card -->
@@ -63,7 +66,12 @@
               </v-col>
               <v-col xs="12" sm="12" md="3" cols="12">
                 <v-card-text
-                  class="text-uppercase font-weight-black text-h5 text-center blue--text"
+                  class="
+                    text-uppercase
+                    font-weight-black
+                    text-h5 text-center
+                    blue--text
+                  "
                   >{{ item.block_name }}</v-card-text
                 >
               </v-col>
@@ -146,6 +154,7 @@ export default {
       dataval: [],
       state: [],
       district: [],
+      loader: false,
     };
   },
   methods: {
@@ -163,6 +172,7 @@ export default {
         });
     },
     onshow(e) {
+      this.dataval = [];
       this.axios
         .get(
           "https://cdn-api.co-vin.in/api/v2/admin/location/districts/" + e.id
@@ -178,6 +188,7 @@ export default {
         });
     },
     ondetail(e) {
+      this.loader = true;
       this.axios
         .get(
           `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${
@@ -185,7 +196,16 @@ export default {
           }&date=${moment(new Date()).format("DD-MM-YYYY")}`
         )
         .then((data) => {
-          this.dataval = data.data.sessions;
+          for (let i = 0; i < data.data.sessions.length; i++) {
+            if (data.data.sessions[i].available_capacity_dose1 > 0) {
+              this.dataval.push(data.data.sessions[i]);
+            }
+          }
+
+          this.loader = false;
+          this.district = [];
+          this.state = [];
+          this.getStates();
         });
     },
   },
@@ -194,3 +214,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.v-progress-circular {
+  margin: 1rem;
+}
+</style>
