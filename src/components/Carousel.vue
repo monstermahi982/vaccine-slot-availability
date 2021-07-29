@@ -1,10 +1,17 @@
 <template>
     <v-carousel
-    height="400px">
+    height="100vh">
     <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
+      src="../assets/image1.jpg"
+    ></v-carousel-item>
+    <v-carousel-item
+      src="../assets/image5.jpg"
+    ></v-carousel-item>
+    <v-carousel-item
+      src="../assets/image6.jpg"
+    ></v-carousel-item>
+    <v-carousel-item
+      src="../assets/image8.webp"
     ></v-carousel-item>
   </v-carousel>
 </template>
@@ -12,23 +19,5 @@
 <script>
 export default {
     name:"Carousel",
-    data: () => ({
-     
-      items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
-        ],
-    }),
-
 }
 </script>

@@ -126,7 +126,7 @@
                   }}</v-btn></v-col
                 >
                 <v-col cols="4"
-                  ><v-btn color="blue darken-2" block>BOOK SLOT</v-btn></v-col
+                  ><v-btn color="blue darken-2" block href="https://selfregistration.cowin.gov.in/" target="_blank">BOOK SLOT</v-btn></v-col
                 >
               </v-row>
             </v-card-actions>

@@ -16,17 +16,19 @@
         <v-list-item-subtitle>Join Monster community</v-list-item-subtitle>
       </v-list-item-content>
 
-      <v-list-item-avatar
-        tile
-        size="80"
-        color="primary"
-      ></v-list-item-avatar>
+      <v-img
+        max-height="100"
+        max-width="100"
+        src= "../assets/monster.jpeg"
+      ></v-img>
     </v-list-item>
 
     <v-card-actions>
       <v-btn
         rounded
         color="primary"
+        href="https://github.com/monstermahi982"
+        target="_blank"
 
       >
         Github

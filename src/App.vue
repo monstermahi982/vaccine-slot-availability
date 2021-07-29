@@ -26,23 +26,9 @@
       class="primary lighten-1 white--text text-center"
       width="100%"
     >
-      <v-card-text>
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          class="mx-8 white--text"
-          icon
-        >
-          <v-icon size="24px">
-            {{ icon }}
-          </v-icon>
-        </v-btn>
-      </v-card-text>
-
       <v-divider></v-divider>
-
       <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        {{ new Date().getFullYear() }} — <strong>codewithmonster</strong>
       </v-card-text>
     </v-card>
   </v-footer>

@@ -11,7 +11,6 @@
     <v-toolbar-items>
         <v-btn to="/" text>Home</v-btn>
         <v-btn to="slots" text>Slots</v-btn>
-        <v-btn to="/about" text>About</v-btn>
         <v-btn to="/contact" text>Contact</v-btn>
     </v-toolbar-items>
 
