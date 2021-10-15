@@ -2,7 +2,7 @@
   <div>
     <Carousel />
     <h1 class="text-center font-weight-bold blue--text" color="blue darken-3">
-      <div class="text-h4 font-weight-bold my-5">WELCOME TO THE e-HEALTH SYSTEM FOR VACCINE SLOT AVAILABLITY FOR COVID-19</div>
+      <div class="text-h5 font-weight-bold my-5">E-HEALTH SYSTEM FOR VACCINE SLOT AVAILABLITY FOR COVID-19</div>
       <v-container>
         <v-row>
           <v-col xs="12" sm="12" md="6" cols="12"><Cards /></v-col>

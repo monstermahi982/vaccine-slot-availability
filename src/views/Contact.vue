@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1 class="text-center font-weight-bold blue--text" color="blue darken-3">
-      FEEDBACK with <b>FIREBASE</b>
+      SHARE YOUR <b>FEEDBACK</b>
       <v-spacer></v-spacer>
       <v-row>
         <v-col md="4" cols="12">
